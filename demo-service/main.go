@@ -3,7 +3,7 @@ package main
 import (
 	"context"
 	"github.com/micro/go-micro"
-	pb "github.com/nonfu/laracom/demo-service/proto/demo"
+	pb "github.com/840309695/laracom/demo-service/proto/demo"
 	userpb "github.com/nonfu/laracom/user-service/proto/user"
 	"log"
 )
