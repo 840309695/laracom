@@ -3,6 +3,8 @@ package repo
 import (
 	"github.com/jinzhu/gorm"
 	pb "github.com/840309695/laracom/user-service/proto/user"
+	"log"
+	"os"
 )
 
 type Repository interface {
@@ -42,9 +44,19 @@ func (repo *UserRepository) GetByEmail(email string) (*pb.User, error) {
 }
 
 func (repo *UserRepository) GetAll() ([]*pb.User, error) {
+
 	var users []*pb.User
 	if err := repo.Db.Find(&users).Error; err != nil {
 		return nil, err
 	}
+	file := "./" +"message"+ ".txt"
+	logFile, err := os.OpenFile(file, os.O_RDWR|os.O_CREATE|os.O_APPEND, 0766)
+	if err != nil {
+		panic(err)
+	}
+	log.SetOutput(logFile) // 将文件设置为log输出的文件
+	log.SetPrefix("[qSkipTool]")
+	log.SetFlags(log.LstdFlags | log.Lshortfile | log.LUTC)
+	log.Println(users) // log 还是可以作为输出的前缀
 	return users, nil
 }
