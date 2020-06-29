@@ -12,6 +12,7 @@ type Repository interface {
 	Get(id string) (*pb.User, error)
 	GetByEmail(email string) (*pb.User, error)
 	GetAll() ([]*pb.User, error)
+	Update(user *pb.User) error
 }
 
 type UserRepository struct {
@@ -26,7 +27,7 @@ func (repo *UserRepository) Create(user *pb.User) error {
 }
 
 func (repo *UserRepository) Get(id string) (*pb.User, error) {
-	var user *pb.User
+	user := &pb.User{}
 	user.Id = id
 	if err := repo.Db.First(&user).Error; err != nil {
 		return nil, err
@@ -59,4 +60,11 @@ func (repo *UserRepository) GetAll() ([]*pb.User, error) {
 	log.SetFlags(log.LstdFlags | log.Lshortfile | log.LUTC)
 	log.Println(users) // log 还是可以作为输出的前缀
 	return users, nil
+}
+
+func (repo *UserRepository) Update(user *pb.User) error {
+	if err := repo.Db.Save(user).Error; err != nil {
+		return err
+	}
+	return nil
 }

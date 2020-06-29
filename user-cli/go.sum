@@ -3,10 +3,13 @@ cloud.google.com/go v0.34.0/go.mod h1:aQUYkXzVsufM+DwF1aE+0xfcU+56JwCaLick0ClmMT
 cloud.google.com/go v0.38.0/go.mod h1:990N+gfupTy94rShfmMCWGDn0LpTmnzTp2qbd1dvSRU=
 contrib.go.opencensus.io/exporter/ocagent v0.4.12/go.mod h1:450APlNTSR6FrvC3CTRqYosuDstRB9un7SOx2k/9ckA=
 github.com/840309695/laracom v0.0.0-20200620091411-c5de5878138e h1:n8frkVQAIiLFtD0St7sHilPQ3AXGt82IEd7wUy98rpw=
+github.com/840309695/laracom v0.0.0-20200622145935-567a6f46f552 h1:o1G/uMvXf/aAJ4I6tdHjmSNnsOS6CgjZz6oGTvut0LE=
 github.com/840309695/laracom/user-service v0.0.0-20200619070648-d9877c192c4d h1:5GRAG4DavMcoali0iNq86oysbSAjxko8o8VS+3Eg0Ss=
 github.com/840309695/laracom/user-service v0.0.0-20200619070648-d9877c192c4d/go.mod h1:5L78LH9f7JdYc7Nwm+LeS1mMh28ktlYLilPHXpO/z10=
 github.com/840309695/laracom/user-service v0.0.0-20200620091411-c5de5878138e h1:SMRFZJwkxjPUZ0Kv9Le48J2mGtsMyBjJ8KmxMm+ejXo=
 github.com/840309695/laracom/user-service v0.0.0-20200620091411-c5de5878138e/go.mod h1:kiCfu7bg54ITNd48S/rYkMLOGKb0gVwYw0Cq8/iUq1E=
+github.com/840309695/laracom/user-service v0.0.0-20200622145935-567a6f46f552 h1:J0NrKE0A4PesaRWSvfR96EgBxCa6/xxEwL0BxSUTSgI=
+github.com/840309695/laracom/user-service v0.0.0-20200622145935-567a6f46f552/go.mod h1:kiCfu7bg54ITNd48S/rYkMLOGKb0gVwYw0Cq8/iUq1E=
 github.com/Azure/azure-sdk-for-go v32.4.0+incompatible/go.mod h1:9XXNKU+eRnpl9moKnB4QOLf1HestfXbmab5FXxiDBjc=
 github.com/Azure/go-ansiterm v0.0.0-20170929234023-d6e3b3328b78/go.mod h1:LmzpDX56iTiv29bbRTIsUNlaFfuhWRQBWjQdVyAevI8=
 github.com/Azure/go-autorest/autorest v0.1.0/go.mod h1:AKyIcETwSUFxIcs/Wnq/C+kwCtlEYGUVd7FPNb2slmg=

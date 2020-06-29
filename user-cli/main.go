@@ -35,29 +35,31 @@ func main()  {
 	// 运行客户端命令调用远程服务逻辑设置
 	service.Init(
 		micro.Action(func(c *cli.Context) {
-			name := c.String("name")
-			email := c.String("email")
-			password := c.String("password")
+			//name := c.String("name")
+			email := "840309695@qq.com"
+			password := "1234"
 
-			log.Println("参数:", name, email, password)
+			//log.Println("参数:", name, email, password)
 
 			// 调用用户服务
-			r, err := client.Create(context.TODO(), &pb.User{
-				Name: name,
-				Email: email,
-				Password: password,
-			})
-			if err != nil {
-				log.Fatalf("创建用户失败: %v", err)
-			}
-			log.Printf("创建用户成功: %s", r.User.Id)
+			//r, err := client.Create(context.TODO(), &pb.User{
+			//	Name: name,
+			//	Email: email,
+			//	Password: password,
+			//})
+			//if err != nil {
+			//	log.Fatalf("创建用户失败: %v", err)
+			//}
+			//log.Printf("创建用户成功: %s", r.User.Id)
 
 			// 调用用户认证服务
-			var token *pb.Token
-			token, err = client.Auth(context.TODO(), &pb.User{
+			//var token *pb.Token
+			token, err := client.Auth(context.TODO(), &pb.User{
 				Email: email,
 				Password: password,
 			})
+			log.Printf("用户登录成功：%s", token.Token)
+			os.Exit(0)
 			if err != nil {
 				log.Fatalf("用户登录失败: %v", err)
 			}

@@ -4,15 +4,20 @@ import (
 	"fmt"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
+	 "os"
 )
 
 func CreateConnection() (*gorm.DB, error) {
 
 	// 从系统环境变量获取数据库信息
-	host := "47.98.221.30"
-	user := "root"
-	DBName := "homestead"
-	password := "1234"
+	//host := "47.98.221.30"
+	//user := "root"
+	//DBName := "homestead"
+	//password := "1234"
+	host := os.Getenv("DB_HOST")
+	user := os.Getenv("DB_USER")
+	DBName := os.Getenv("DB_NAME")
+	password := os.Getenv("DB_PASSWORD")
 
 	return gorm.Open(
 		"mysql",

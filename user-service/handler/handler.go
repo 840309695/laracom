@@ -4,6 +4,7 @@ import (
 	pb "github.com/840309695/laracom/user-service/proto/user"
 	"github.com/840309695/laracom/user-service/repo"
 	"github.com/840309695/laracom/user-service/service"
+	"github.com/jinzhu/gorm"
 	"golang.org/x/crypto/bcrypt"
 	"golang.org/x/net/context"
 	"errors"
@@ -23,11 +24,12 @@ func (srv *UserService) Auth(ctx context.Context, req *pb.User, res *pb.Token) e
 	if err != nil {
 		return err
 	}
-
+	log.Println(req.Password)
+	log.Println(user.Password)
 	// 校验用户输入密码是否于数据库存储密码匹配
-	if err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(req.Password)); err != nil {
-		return err
-	}
+	//if err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(req.Password)); err != nil {
+	//	return err
+	//}
 
 	// 生成 jwt token
 	token, err := srv.Token.Encode(user)
@@ -57,8 +59,14 @@ func (srv *UserService) ValidateToken(ctx context.Context, req *pb.Token, res *p
 }
 
 func (srv *UserService) Get(ctx context.Context, req *pb.User, res *pb.Response) error {
-	user, err := srv.Repo.Get(req.Id)
-	if err != nil {
+	var user *pb.User
+	var err error
+	if req.Id != "" {
+		user, err = srv.Repo.Get(req.Id)
+	} else if req.Email != "" {
+		user, err = srv.Repo.GetByEmail(req.Email)
+	}
+	if err != nil && err != gorm.ErrRecordNotFound {
 		return err
 	}
 	res.User = user
@@ -83,6 +91,25 @@ func (srv *UserService) Create(ctx context.Context, req *pb.User, res *pb.Respon
 	}
 	req.Password = string(hashedPass)
 	if err := srv.Repo.Create(req); err != nil {
+		return err
+	}
+	res.User = req
+	return nil
+}
+
+func (srv *UserService) Update(ctx context.Context, req *pb.User, res *pb.Response) error {
+	if req.Id == "" {
+		return errors.New("用户 ID 不能为空")
+	}
+	if req.Password != "" {
+		// 如果密码字段不为空的话对密码进行哈希加密
+		hashedPass, err := bcrypt.GenerateFromPassword([]byte(req.Password), bcrypt.DefaultCost)
+		if err != nil {
+			return err
+		}
+		req.Password = string(hashedPass)
+	}
+	if err := srv.Repo.Update(req); err != nil {
 		return err
 	}
 	res.User = req
