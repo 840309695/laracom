@@ -2,7 +2,7 @@ module github.com/840309695/laracom/user-service
 
 go 1.14
 
-replace github.com/840309695/laracom/user-service => /Users/sunxuguang1/Go_pace/src/laracom/user-service
+//replace github.com/840309695/laracom/user-service => /Users/sunxuguang1/Go_pace/src/laracom/user-service
 
 require (
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible

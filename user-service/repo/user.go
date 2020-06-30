@@ -68,3 +68,4 @@ func (repo *UserRepository) Update(user *pb.User) error {
 	}
 	return nil
 }
+

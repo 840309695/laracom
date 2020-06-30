@@ -13,8 +13,8 @@ import (
 
 type UserService struct {
 	Repo repo.Repository
-	Token service.Authable
 	ResetRepo repo.PasswordResetInterface
+	Token service.Authable
 }
 
 func (srv *UserService) Auth(ctx context.Context, req *pb.User, res *pb.Token) error {
@@ -128,6 +128,7 @@ func (srv *UserService) CreatePasswordReset(ctx context.Context, req *pb.Passwor
 	return nil
 }
 
+
 func (srv *UserService) ValidatePasswordResetToken(ctx context.Context, req *pb.Token, res *pb.Token) error {
 	// 校验用户亲求中的token信息是否有效
 	if req.Token == "" {
@@ -146,3 +147,20 @@ func (srv *UserService) ValidatePasswordResetToken(ctx context.Context, req *pb.
 	}
 	return nil
 }
+
+func (srv *UserService) DeletePasswordReset(ctx context.Context, req *pb.PasswordReset, res *pb.PasswordResetResponse) error {
+	if req.Email == "" {
+		return errors.New("邮箱不能为空")
+	}
+	reset, err := srv.ResetRepo.GetByEmail(req.Email)
+	if err != nil {
+		return errors.New("数据库查询出错")
+	}
+	if err := srv.ResetRepo.Delete(reset); err != nil {
+		return err
+	}
+	res.PasswordReset = nil
+	return nil
+}
+
+

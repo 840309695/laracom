@@ -12,6 +12,7 @@ import (
 )
 
 func main() {
+
 	// 创建数据库连接，程序退出时断开连接
 	db, err := database.CreateConnection()
 	defer db.Close()
@@ -27,9 +28,9 @@ func main() {
 
 	// 初始化 Repo 实例用于后续数据库操作
 	repo := &repository.UserRepository{db}
-	resetRepo := &repository.PasswordResetRepository{db}
 	// 初始化 token service
 	token := &service.TokenService{repo}
+	resetRepo := &repository.PasswordResetRepository{db}
 
 	// 以下是 Micro 创建微服务流程
 	srv := micro.NewService(
